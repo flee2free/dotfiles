@@ -1,0 +1,118 @@
+#!/usr/bin/env sh
+
+set -x
+
+declare -A gaps
+declare -A color
+
+gaps["top"]="10"
+gaps["bottom"]="2"
+gaps["left"]="2"
+gaps["right"]="2"
+gaps["inner"]="2" # "${gaps["bottom"]}"
+
+color["focused"]="0xE0808080"
+color["normal"]="0x00010101"
+color["preselect"]="0xE02d74da"
+
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# ========== Spaces Renaming ==========
+yabai -m space 1 --label one
+yabai -m space 2 --label two
+yabai -m space 3 --label three
+yabai -m space 4 --label four
+yabai -m space 5 --label five
+yabai -m space 6 --label six
+yabai -m space 7 --label seven
+yabai -m space 8 --label eight
+yabai -m space 9 --label nine
+yabai -m space 10 --label ten
+
+# ========== Tiling Setting ==========
+yabai -m config external_bar                main:24:0
+yabai -m config layout                      bsp
+
+yabai -m config top_padding                 2
+yabai -m config bottom_padding              2
+yabai -m config left_padding                2
+yabai -m config right_padding               2
+yabai -m config window_gap                  2
+
+yabai -m config mouse_follows_focus         off
+yabai -m config focus_follows_mouse         off
+
+yabai -m config window_topmost              off
+yabai -m config window_opacity              off
+yabai -m config window_shadow               float
+
+yabai -m config window_border               on
+yabai -m config window_border_width         6
+
+# green: 0xE04caf50 || # grey: 808080 || # blue: 0xff3e5ea3
+yabai -m config active_window_border_color  "0xE04caf50"
+# yabai -m config active_window_border_color  "0xE03e5ea3"
+yabai -m config normal_window_border_color  "0xE0808080"
+yabai -m config insert_feedback_color       "0xE02d74da"
+
+yabai -m config active_window_opacity       1.0
+yabai -m config normal_window_opacity       0.90
+yabai -m config split_ratio                 0.50
+
+yabai -m config auto_balance                off
+
+yabai -m config mouse_modifier              alt
+yabai -m config mouse_action1               move
+yabai -m config mouse_action2               resize
+
+# global settings
+yabai -m config window_placement             second_child
+yabai -m config window_opacity_duration      0.0
+yabai -m config mouse_drop_action            swap
+
+
+# ========== Rules ==========
+
+yabai -m rule --add app="^System Preferences$" sticky=on layer=above border=off manage=off
+yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Keka$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Pika$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Radio Silence$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Malwarebytes$" sticky=on layer=above manage=off
+yabai -m rule --add app="^RH Timer$" manage=off
+yabai -m rule --add app="^Bartender 4$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" sticky=on layer=above border=off manage=off
+yabai -m rule --add app="^Telegram$" sticky=on manage=off
+
+yabai -m rule --add app="^PCalc$" layer=above manage=off
+
+yabai -m rule --add app="^IINA$" manage=off
+yabai -m rule --add app="^Qbserve$" manage=off
+yabai -m rule --add app="^Keychain Access$" manage=off
+yabai -m rule --add app="^AppCleaner$" manage=off
+yabai -m rule --add app="^BetterTouchTool$" manage=off
+yabai -m rule --add app="^Keyboard Maestro$" manage=off
+yabai -m rule --add app="^cDock$" manage=off
+yabai -m rule --add app="System Information" title="About This Mac" manage=off
+
+yabai -m rule --add label="Software Update" title="Software Update" manage=off
+yabai -m rule --add app="^App Store$" manage=off border=off
+yabai -m rule --add app="^Contexts$" manage=off
+yabai -m rule --add label="DaisyDisk" app="^DaisyDisk$" manage=off
+yabai -m rule --add label="iStat Menus" app="^iStat Menus$" manage=off
+
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="iA Writer" app="^iA Writer$" title="^(General|(Account|File|Template)s|Library|Editor)$" manage=off
+yabai -m rule --add label="SnippetsLab" app="^SnippetsLab$" title="^Preferences$" manage=off
+yabai -m rule --add label="IDEA" app="^IntelliJ IDEA$" title="^Preferences$" manage=off
+yabai -m rule --add label="CLion" app="^CLion$" title="^(Preferences|Edit Configuration)$" manage=off
+
+set +x
+echo "yabai configuration loaded.."
+
+# https://github.com/Julian-Heng/yabai-config/blob/master/yabairc

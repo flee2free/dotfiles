@@ -1,0 +1,70 @@
+
+# skhd --observe
+
+## quickly restart the yabai launch agent
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+
+# test a command
+# 0x5A : terminal-notifier -message "lshift - x"
+# lshift - x : terminal-notifier -message "$(yabai -m query --windows --window | jq -re ".id")"
+
+## open terminal
+hyper - return : open -a iTerm
+
+## hide application
+# 0x5A : skhd -k "cmd - h" # 0x5A is the "F20" key
+
+## swap window
+hyper - 8 : yabai -m window --swap west
+hyper - 9 : yabai -m window --swap south
+hyper - 0 : yabai -m window --swap east
+
+## toggle window border
+cmd + shift + alt - b : yabai -m window --toggle border
+
+## rotate tree 90
+hyper - r : yabai -m space --rotate 90
+
+## balance
+hyper - b : yabai -m space --balance
+
+## toggle window fullscreen zoom
+hyper - f : yabai -m window --toggle zoom-fullscreen
+
+## flip the tree vertically
+hyper - 4 : yabai -m space --mirror y-axis
+
+## 1. create a stack
+hyper - b : yabai -m query --windows --window | jq -re "." | xargs -I{} yabai -m window 1 --stack {}
+
+## 2. stack next window onto current window
+hyper - m : window=$(yabai -m query --windows --window | jq -r '.id') \
+                        && yabai -m window east --stack $window \
+    || (yabai -m window $window --toggle float && yabai -m window $window --toggle float)
+
+## 3. toggle foucus on a stack
+hyper - n : yabai -m window --focus stack.next \
+    || yabai -m window --focus stack.first
+            
+# h t maps to j k (dvorak vs. qwerty)
+# cycle forward https://github.com/koekeishiya/yabai/issues/104
+hyper - t : yabai -m window --focus next \
+    || yabai -m window --focus "$( \
+        (yabai -m query --spaces --display next || yabai -m query --spaces --display first) \
+            | jq -re '.[] | select(.visible == 1)."first-window"')" \
+    || yabai -m display --focus next \
+    || yabai -m display --focus first
+
+# cycle backwards
+hyper - h : yabai -m window --focus prev \
+    || yabai -m window --focus "$( \
+        (yabai -m query --spaces --display prev || yabai -m query --spaces --display last) \
+            | jq -re '.[] | select(.visible == 1)."last-window"')" \
+    || yabai -m display --focus prev \
+    || yabai -m display --focus last
+
+# Float / Unfloat window
+shift + cmd- space : \
+    yabai -m window --toggle float; \
+    yabai -m window --toggle border; \
+    yabai -m window --toggle sticky
