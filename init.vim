@@ -1,8 +1,9 @@
 call plug#begin("~/.config/nvim/plugged")
-Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'Xuyuanp/nerdtree-git-plugin' " todo: test this
 Plug 'preservim/nerdcommenter'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug '907th/vim-auto-save'
+Plug 'lifepillar/vim-cheat40' " ~/.vim/cheat40.txt
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -55,6 +56,9 @@ Plug 'tbabej/taskwiki'
 Plug 'plasticboy/vim-markdown'
 
 call plug#end()
+
+" Resources ***
+" https://bluz71.github.io/2017/05/21/vim-plugins-i-like.html
 
 if exists('+termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -146,6 +150,29 @@ nmap - <Plug>(choosewin)
 " Automatically deletes all trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
+" Disable default cheatsheet
+let g:cheat40_use_default = 0
+
+" ============================
+" Auto Save : Undo Change
+" ============================
+
+let g:auto_save        = 1
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
+
+" Undo changes even if vim was previously closed
+set undodir=$HOME/.local/share/vim/undo
+set undofile
+set undolevels=1000 undoreload=10000
+
+" ============================
+" File Explorer
+" ============================
+" Open netrw
+" map <leader>n :Vexplore<CR>
+" let g:netrw_liststyle = 3
+
 " ============================
 " Make inner change text motions extendeded (*nixcasts)
 " ============================
@@ -209,7 +236,7 @@ let $FZF_DEFAULT_COMMAND = 'find . -not -path "*/\.git*" -type f -print'
 
 let mapleader = ","
 
-map <leader>f :Goyo \| set linebreak<CR>
+map <leader>gy :Goyo \| set linebreak<CR>
 let g:goyo_width=80
 map ZQG :Goyo\|q!<CR>
 map ZZG :Goyo\|x!<CR>
@@ -384,62 +411,58 @@ let g:NERDSpaceDelims = 1
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
+
 " ============================
-" Nerd Tree
+" Fern
 " ============================
 
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1 " hide helper
-let g:NERDTreeIgnore = ['^node_modules$'] " ignore node_modules to increase load speed
-let g:NERDTreeStatusline = '' " set to empty to use lightline
+let g:fern#disable_default_mappings   = 1
+let g:fern#disable_drawer_auto_quit   = 1
+let g:fern#disable_viewer_hide_cursor = 1
 
-let mapleader = ','
-noremap <leader>b :NERDTreeToggle<CR>
-" " Close window if NERDTree is the last one
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" " Map to open current file in NERDTree and set size
-nnoremap <leader>pv :NERDTreeFind<bar> :vertical resize 45<CR>
+noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
 
-" NERDTree Syntax Highlight
-" " Enables folder icon highlighting using exact match
-let g:NERDTreeHighlightFolders = 1
-" " Highlights the folder name
-let g:NERDTreeHighlightFoldersFullName = 1
-" " Color customization
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE404F'
-let s:git_orange = 'F54D27'
-" " This line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor = {}
-" " Sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue
-" " This line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor = {}
-" " Sets the color for .gitignore files
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange
-" " This line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor = {}
-" " Sets the color for files ending with _spec.rb
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red
-" " Sets the color for folders that did not match any rule
-let g:WebDevIconsDefaultFolderSymbolColor = s:beige
-" " Sets the color for files that did not match any rule
-let g:WebDevIconsDefaultFileSymbolColor = s:blue
+function! FernInit() abort
+  nmap <buffer><expr>
+        \ <Plug>(fern-my-open-expand-collapse)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open:select)",
+        \   "\<Plug>(fern-action-expand)",
+        \   "\<Plug>(fern-action-collapse)",
+        \ )
+  nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> m <Plug>(fern-action-mark:toggle)j
+  nmap <buffer> N <Plug>(fern-action-new-file)
+  nmap <buffer> K <Plug>(fern-action-new-dir)
+  nmap <buffer> D <Plug>(fern-action-remove)
+  nmap <buffer> V <Plug>(fern-action-move)
+  nmap <buffer> R <Plug>(fern-action-rename)
+  nmap <buffer> s <Plug>(fern-action-open:split)
+  nmap <buffer> v <Plug>(fern-action-open:vsplit)
+  nmap <buffer> r <Plug>(fern-action-reload)
+  nmap <buffer> <nowait> d <Plug>(fern-action-hidden:toggle)
+  nmap <buffer> <nowait> < <Plug>(fern-action-leave)
+  nmap <buffer> <nowait> > <Plug>(fern-action-enter)
+endfunction
 
-let g:NERDTreeGitStatusUseNerdFonts = 1
+augroup FernEvents
+  autocmd!
+  autocmd FileType fern call FernInit()
+augroup END
 
+let g:fern#mark_symbol                       = '●'
+let g:fern#renderer#default#collapsed_symbol = '▷ '
+let g:fern#renderer#default#expanded_symbol  = '▼ '
+let g:fern#renderer#default#leading          = ' '
+let g:fern#renderer#default#leaf_symbol      = ' '
+let g:fern#renderer#default#root_symbol      = '~ '
+
+augroup FernTypeGroup
+    autocmd! * <buffer>
+    autocmd BufEnter <buffer> silent execute "normal \<Plug>(fern-action-reload)"
+augroup END
+
+let g:fern_git_status#disable_ignored    = 1
+let g:fern_git_status#disable_untracked  = 1
+let g:fern_git_status#disable_submodules = 1
