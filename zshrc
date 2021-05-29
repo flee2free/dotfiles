@@ -15,6 +15,7 @@ export PATH="$HOME/.node_modules_global/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/lib/flutter/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.rubies/ruby-3.0.1/bin:$PATH"
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -55,6 +56,7 @@ alias studio="open -a 'visual studio code'"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias marta="open -a Marta"
 
 alias l="lsd -lFh"
 alias ls="lsd"
@@ -171,7 +173,7 @@ _gen_fzf_default_opts() {
   # Comment and uncomment below for the light theme.
 
   # Solarized Dark color scheme for fzf
-  export FZF_DEFAULT_OPTS="
+    export FZF_DEFAULT_OPTS="
     --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
     --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
   "
