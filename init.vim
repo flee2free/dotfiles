@@ -4,6 +4,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug '907th/vim-auto-save'
 Plug 'lifepillar/vim-cheat40' " ~/.vim/cheat40.txt
+Plug 'tpope/vim-unimpaired' " todo: need to test this out
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -226,8 +227,6 @@ let mapleader = ","
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <silent> <Leader>l :Lines<CR>
 
-" let $BAT_THEME = 'gruvbox-light'
-let $BAT_THEME = 'gruvbox-dark'
 let $FZF_DEFAULT_COMMAND = 'find . -not -path "*/\.git*" -type f -print'
 
 " ============================
@@ -266,8 +265,8 @@ let g:limelight_priority = -1
 let g:gruvbox_contrast_light='soft'
 let g:gruvbox_contrast_dark='soft'
 colorscheme gruvbox
-" set background=light
 set background=dark
+" set background=dark
 
 function! ChangeBackground()
     if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
@@ -345,12 +344,12 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " EasyMotion
 " ============================
 
-" ~~~~~ Map easy motion to search
+" Map easy motion to search
 nmap f <Plug>(easymotion-overwin-f2)
 nmap / <Plug>(easymotion-overwin-line)
 nmap <leader>/ <Plug>(easymotion-overwin-w)
 
-" ~~~~~ Make sure <leader><leader> isnt remapped
+" Make sure <leader><leader> isnt remapped
 let g:EasyMotion_do_mapping = 0
 
 " Turn on case-insensitive feature
@@ -363,20 +362,10 @@ let g:EasyMotion_smartcase = 1
 let g:vimwiki_list = [
             \{ 'path': '~/Box/wiki/', 'syntax': 'markdown', 'ext': '.md' }]
 
-" todo:
-" 1. Explore on creating multiple wiki over various areas of your life
-" 2. https://github.com/Alok/notational-fzf-vim (notational velocity concept)
-" 3. Good Read about Structuring your note taking system
-" -- https://chmanie.com/post/2020/08/28/switching-from-bear-to-vim-based-notes/
-" let wiki_1 = {}
-" let wiki_1.path = '~/Box/work'
-" let wiki_1.syntax = 'markdown'
-" let wiki_1.ext = '.md'
-"
-" let wiki_2 = {}
-"
-" let g:vimwiki_list = [wiki_1, wiki_2]
-" let g:vimwiki_ext2syntax = { '.md': 'markdown', '.markdown': 'markdown' }
+" https://github.com/vimwiki/vimwiki/issues/255
+" https://stackoverflow.com/questions/16059716
+autocmd FileType vimwiki nunmap <buffer> <CR>
+autocmd FileType vimwiki nmap <buffer>nl <Plug>VimwikiFollowLink
 
 " Makes vimwiki markdown links as [text](text.md) instead of [text](text)
 let g:vimwiki_markdown_link_ext = 1
