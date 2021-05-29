@@ -45,7 +45,7 @@ hyper - m : window=$(yabai -m query --windows --window | jq -r '.id') \
 ## 3. toggle foucus on a stack
 hyper - n : yabai -m window --focus stack.next \
     || yabai -m window --focus stack.first
-            
+
 # h t maps to j k (dvorak vs. qwerty)
 # cycle forward https://github.com/koekeishiya/yabai/issues/104
 hyper - t : yabai -m window --focus next \
@@ -63,8 +63,9 @@ hyper - h : yabai -m window --focus prev \
     || yabai -m display --focus prev \
     || yabai -m display --focus last
 
-# Float / Unfloat window
-shift + cmd- space : \
+# Window that you need all the time
+shift + cmd - space : \
     yabai -m window --toggle float; \
-    yabai -m window --toggle border; \
-    yabai -m window --toggle sticky
+    yabai -m window --toggle sticky; \
+    yabai -m window --toggle topmost; \
+    yabai -m window --toggle shadow;
