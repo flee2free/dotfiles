@@ -50,11 +50,10 @@ yabai -m config window_shadow               float
 yabai -m config window_border               on
 yabai -m config window_border_width         6
 
-# green: 0xE04caf50 || # grey: 808080 || # blue: 0xff3e5ea3
-yabai -m config active_window_border_color  "0xE04caf50"
-# yabai -m config active_window_border_color  "0xE03e5ea3"
-yabai -m config normal_window_border_color  "0xE0808080"
-yabai -m config insert_feedback_color       "0xE02d74da"
+# green: 0xE04caf50 || # blue: 0xff3e5ea3
+yabai -m config active_window_border_color  "0xE03e5ea3"
+yabai -m config normal_window_border_color  "0xff808080"
+yabai -m config insert_feedback_color       "0xff2d74da"
 
 yabai -m config active_window_opacity       1.0
 yabai -m config normal_window_opacity       0.90
@@ -88,10 +87,11 @@ yabai -m rule --add app="^Bartender 4$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Finder$" sticky=on layer=above border=off manage=off
 yabai -m rule --add app="^Telegram$" sticky=on manage=off
+yabai -m rule --add app="^Transmission$" sticky=on manage=off
 
 yabai -m rule --add app="^PCalc$" layer=above manage=off
+yabai -m rule --add app="^Streaks$" layer=above manage=off border=off sticky=on
 
-yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="^Qbserve$" manage=off
 yabai -m rule --add app="^Keychain Access$" manage=off
 yabai -m rule --add app="^AppCleaner$" manage=off
@@ -111,6 +111,7 @@ yabai -m rule --add label="iA Writer" app="^iA Writer$" title="^(General|(Accoun
 yabai -m rule --add label="SnippetsLab" app="^SnippetsLab$" title="^Preferences$" manage=off
 yabai -m rule --add label="IDEA" app="^IntelliJ IDEA$" title="^Preferences$" manage=off
 yabai -m rule --add label="CLion" app="^CLion$" title="^(Preferences|Edit Configuration)$" manage=off
+yabai -m rule --add label="RubyMine" app="^RubyMine$" title="^(Preferences|Edit Configuration)$" manage=off
 
 set +x
 echo "yabai configuration loaded.."

@@ -20,14 +20,16 @@ export PATH="$HOME/.rubies/ruby-3.0.1/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-export BAT_THEME="gruvbox-dark"
-# export BAT_THEME="gruvbox-light"
+export BAT_THEME="gruvbox-light"
 
 # theunraveler
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS="true"
+
+# Path to VIMRC
+MYVIMRC="~/.config/nvim/init.vim"
 
 plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting common-aliases
 				colored-man-pages rand-quote brew git zsh-z)
@@ -57,6 +59,8 @@ alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias marta="open -a Marta"
+
+alias t="timetrap"
 
 alias l="lsd -lFh"
 alias ls="lsd"
@@ -170,19 +174,17 @@ _gen_fzf_default_opts() {
   local cyan="37"
   local green="64"
 
-  # Comment and uncomment below for the light theme.
+    fzf_theme_dark="
+        --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
+        --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
+    "
 
-  # Solarized Dark color scheme for fzf
-    export FZF_DEFAULT_OPTS="
-    --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
-    --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
-  "
+    fzf_theme_light="
+        --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
+        --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+    "
 
-  # Solarized Light color scheme for fzf
-  # export FZF_DEFAULT_OPTS="
-   # --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
-   # --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
-  # "
+  export FZF_DEFAULT_OPTS=$fzf_theme_light
 }
 _gen_fzf_default_opts
 

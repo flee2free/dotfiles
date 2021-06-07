@@ -929,7 +929,7 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "hyphen",
+                                    "key_code": "quote",
                                     "modifiers": {
                                         "mandatory": [
                                             "option"
@@ -941,34 +941,34 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen"
+                                        "key_code": "quote"
                                     },
                                     {
-                                        "key_code": "hyphen",
+                                        "key_code": "quote",
                                         "repeat": false
                                     }
                                 ],
@@ -976,7 +976,7 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "equal_sign",
+                                    "key_code": "close_bracket",
                                     "modifiers": {
                                         "mandatory": [
                                             "option"
@@ -988,34 +988,34 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign"
+                                        "key_code": "close_bracket"
                                     },
                                     {
-                                        "key_code": "equal_sign",
+                                        "key_code": "close_bracket",
                                         "repeat": false
                                     }
                                 ],

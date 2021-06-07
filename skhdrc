@@ -67,5 +67,4 @@ hyper - h : yabai -m window --focus prev \
 shift + cmd - space : \
     yabai -m window --toggle float; \
     yabai -m window --toggle sticky; \
-    yabai -m window --toggle topmost; \
-    yabai -m window --toggle shadow;
+    yabai -m window --toggle topmost;
