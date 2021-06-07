@@ -14,10 +14,12 @@ Plug 'Chiel92/vim-autoformat'
 
 " Themes
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 " Briefly highlight which text was yanked.
 Plug 'machakann/vim-highlightedyank'
@@ -62,9 +64,9 @@ call plug#end()
 " https://bluz71.github.io/2017/05/21/vim-plugins-i-like.html
 
 if exists('+termguicolors')
-  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
 syntax on
@@ -79,8 +81,11 @@ set autoindent      " Copy indent from current line when starting a new line (ai
 set copyindent
 set smartindent
 set number
-    :set number relativenumber
-    :set textwidth=80
+set relativenumber
+set textwidth=80
+
+" if you want to stop line wrapping
+" set nowrap
 
 " https://til.hashrocket.com/posts/f5531b6da0-backspace-options
 set backspace=indent,eol,start " allow backspacing over these items
@@ -121,7 +126,7 @@ cabbrev h vert h
 let g:python3_host_prog="/usr/local/bin/python3"
 
 " Delimit Pair
-let delimitMate_matchpairs = "(:),[:],{:},<:>"
+let delimitMate_matchpairs = "(:),[:],{:}"
 
 " Keep cursor at the bottom of the visual selection after you yank it
 vmap y ygv<Esc>
@@ -154,6 +159,9 @@ autocmd BufWritePre * %s/\s\+$//e
 " Disable default cheatsheet
 let g:cheat40_use_default = 0
 
+" Forward Delete
+inoremap <C-d> <Esc>lxi
+
 " ============================
 " Auto Save : Undo Change
 " ============================
@@ -168,11 +176,20 @@ set undofile
 set undolevels=1000 undoreload=10000
 
 " ============================
-" File Explorer
+" Auto Reload
 " ============================
-" Open netrw
-" map <leader>n :Vexplore<CR>
-" let g:netrw_liststyle = 3
+
+set autoread
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " ============================
 " Make inner change text motions extendeded (*nixcasts)
@@ -180,14 +197,14 @@ set undolevels=1000 undoreload=10000
 
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
 for item in items
-   exe "nnoremap yi".item." T".item."yt".item
-   exe "nnoremap ya".item." F".item."yf".item
-   exe "nnoremap ci".item." T".item."ct".item
-   exe "nnoremap ca".item." F".item."cf".item
-   exe "nnoremap di".item." T".item."dt".item
-   exe "nnoremap da".item." F".item."df".item
-   exe "nnoremap vi".item." T".item."vt".item
-   exe "nnoremap va".item." F".item."vf".item
+    exe "nnoremap yi".item." T".item."yt".item
+    exe "nnoremap ya".item." F".item."yf".item
+    exe "nnoremap ci".item." T".item."ct".item
+    exe "nnoremap ca".item." F".item."cf".item
+    exe "nnoremap di".item." T".item."dt".item
+    exe "nnoremap da".item." F".item."df".item
+    exe "nnoremap vi".item." T".item."vt".item
+    exe "nnoremap va".item." F".item."vf".item
 endfor
 
 " ============================
@@ -217,10 +234,10 @@ inoremap <C-f> <Esc><Esc>:BLines!<CR>
 map <C-g> <Esc><Esc>:BCommits!<CR>
 
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \}
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-s': 'split',
+            \ 'ctrl-v': 'vsplit'
+            \}
 
 " Map a few common things to do with FZF.
 let mapleader = ","
@@ -245,28 +262,34 @@ autocmd! User GoyoLeave Limelight!
 
 map <leader>ll :Limelight!!<CR>
 
-" ~~~~~ Default: 0.5
+" Default: 0.5
 let g:limelight_default_coefficient = 0.7
-" ~~~~~ Number of preceding/following paragraphs to include (default: 0)
+" Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span = 1
-" ~~~~~ Beginning/end of paragraph
-" ~~~~~ When there's no empty line between the paragraphs
-" ~~~~~ and each paragraph starts with indentation
+" Beginning/end of paragraph
+" When there's no empty line between the paragraphs
+" and each paragraph starts with indentation
 let g:limelight_bop = '^\s'
 let g:limelight_eop = '\ze\n^\s'
-" ~~~~~ Highlighting priority (default: 10)
-" ~~~~~ Set it to -1 not to overrule hlsearch
+" Highlighting priority (default: 10)
+" Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
 " ============================
-" Gruvbox Theme
+" Gruvbox Theme | Lightline
 " ============================
+
+autocmd OptionSet background
+    \ execute "source ~/.config/nvim/plugged/lightline-gruvbox.vim/plugin/lightline-gruvbox.vim"
+    \ | call lightline#colorscheme() | call lightline#update()
 
 let g:gruvbox_contrast_light='soft'
 let g:gruvbox_contrast_dark='soft'
 colorscheme gruvbox
-set background=dark
-" set background=dark
+set background=light
+
+let g:lightline = {}
+let g:lightline.colorscheme = 'gruvbox'
 
 function! ChangeBackground()
     if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
@@ -274,10 +297,6 @@ function! ChangeBackground()
     else
         set background=light
     endif
-    try
-        execute "AirlineRefresh"
-    catch
-    endtry
 endfunction
 
 call ChangeBackground()
@@ -333,14 +352,6 @@ nnoremap <C-q> :q<CR>
 nnoremap <S-Q> :only<CR>
 
 " ============================
-" Airline
-" ============================
-
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" ============================
 " EasyMotion
 " ============================
 
@@ -365,7 +376,7 @@ let g:vimwiki_list = [
 " https://github.com/vimwiki/vimwiki/issues/255
 " https://stackoverflow.com/questions/16059716
 autocmd FileType vimwiki nunmap <buffer> <CR>
-autocmd FileType vimwiki nmap <buffer>nl <Plug>VimwikiFollowLink
+autocmd FileType vimwiki nmap <buffer> <Plug>VimwikiFollowLink
 
 " Makes vimwiki markdown links as [text](text.md) instead of [text](text)
 let g:vimwiki_markdown_link_ext = 1
@@ -412,32 +423,32 @@ let g:fern#disable_viewer_hide_cursor = 1
 noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
 
 function! FernInit() abort
-  nmap <buffer><expr>
-        \ <Plug>(fern-my-open-expand-collapse)
-        \ fern#smart#leaf(
-        \   "\<Plug>(fern-action-open:select)",
-        \   "\<Plug>(fern-action-expand)",
-        \   "\<Plug>(fern-action-collapse)",
-        \ )
-  nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
-  nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
-  nmap <buffer> m <Plug>(fern-action-mark:toggle)j
-  nmap <buffer> N <Plug>(fern-action-new-file)
-  nmap <buffer> K <Plug>(fern-action-new-dir)
-  nmap <buffer> D <Plug>(fern-action-remove)
-  nmap <buffer> V <Plug>(fern-action-move)
-  nmap <buffer> R <Plug>(fern-action-rename)
-  nmap <buffer> s <Plug>(fern-action-open:split)
-  nmap <buffer> v <Plug>(fern-action-open:vsplit)
-  nmap <buffer> r <Plug>(fern-action-reload)
-  nmap <buffer> <nowait> d <Plug>(fern-action-hidden:toggle)
-  nmap <buffer> <nowait> < <Plug>(fern-action-leave)
-  nmap <buffer> <nowait> > <Plug>(fern-action-enter)
+    nmap <buffer><expr>
+                \ <Plug>(fern-my-open-expand-collapse)
+                \ fern#smart#leaf(
+                \   "\<Plug>(fern-action-open:select)",
+                \   "\<Plug>(fern-action-expand)",
+                \   "\<Plug>(fern-action-collapse)",
+                \ )
+    nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
+    nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
+    nmap <buffer> m <Plug>(fern-action-mark:toggle)j
+    nmap <buffer> N <Plug>(fern-action-new-file)
+    nmap <buffer> K <Plug>(fern-action-new-dir)
+    nmap <buffer> D <Plug>(fern-action-remove)
+    nmap <buffer> V <Plug>(fern-action-move)
+    nmap <buffer> R <Plug>(fern-action-rename)
+    nmap <buffer> s <Plug>(fern-action-open:split)
+    nmap <buffer> v <Plug>(fern-action-open:vsplit)
+    nmap <buffer> r <Plug>(fern-action-reload)
+    nmap <buffer> <nowait> d <Plug>(fern-action-hidden:toggle)
+    nmap <buffer> <nowait> < <Plug>(fern-action-leave)
+    nmap <buffer> <nowait> > <Plug>(fern-action-enter)
 endfunction
 
 augroup FernEvents
-  autocmd!
-  autocmd FileType fern call FernInit()
+    autocmd!
+    autocmd FileType fern call FernInit()
 augroup END
 
 let g:fern#mark_symbol                       = '●'
