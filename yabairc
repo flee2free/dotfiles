@@ -98,8 +98,9 @@ yabai -m rule --add app="^AppCleaner$" manage=off
 yabai -m rule --add app="^BetterTouchTool$" manage=off
 yabai -m rule --add app="^Keyboard Maestro$" manage=off
 yabai -m rule --add app="^cDock$" manage=off
-yabai -m rule --add app="System Information" title="About This Mac" manage=off
+yabai -m rule --add app="^SwitchResX Control$" manage=off
 
+yabai -m rule --add app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Software Update" title="Software Update" manage=off
 yabai -m rule --add app="^App Store$" manage=off border=off
 yabai -m rule --add app="^Contexts$" manage=off
@@ -112,6 +113,18 @@ yabai -m rule --add label="SnippetsLab" app="^SnippetsLab$" title="^Preferences$
 yabai -m rule --add label="IDEA" app="^IntelliJ IDEA$" title="^Preferences$" manage=off
 yabai -m rule --add label="CLion" app="^CLion$" title="^(Preferences|Edit Configuration)$" manage=off
 yabai -m rule --add label="RubyMine" app="^RubyMine$" title="^(Preferences|Edit Configuration)$" manage=off
+
+yabai -m rule --add label="VimR" app="^VimR$" title="^Preferences$" manage=off
+
+# rows:cols:start-x:start-y:width:height
+yabai -m rule --add label="MacVim" app="^MacVim$" \
+    title="^(.*vim-anywhere.*|.*Box.*)$" manage=off grid=16:32:9:5:14:6 \
+    layer=above
+
+yabai -m rule --add app="^iTerm2$" border=off manage=off grid=8:16:0:5:16:3 \
+    layer=above
+
+# yabai -m rule --add app="^kitty$" border=off manage=off layer=above
 
 set +x
 echo "yabai configuration loaded.."
