@@ -1,10 +1,14 @@
+" PLUG {{{
+set nocompatible
+
 call plug#begin("~/.config/nvim/plugged")
 Plug 'preservim/nerdcommenter'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug '907th/vim-auto-save'
-Plug 'lifepillar/vim-cheat40' " ~/.vim/cheat40.txt
-Plug 'tpope/vim-unimpaired' " todo: need to test this out
+
+Plug 'lifepillar/vim-cheat40'
+Plug 'tpope/vim-unimpaired'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -12,63 +16,66 @@ Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'Chiel92/vim-autoformat'
 
+" https://github.com/plasticboy/vim-markdown/issues/126#issuecomment-640890790
+" https://github.com/sheerun/vim-polyglot/issues/478
+Plug 'godlygeek/tabular'
+Plug 'masukomi/vim-markdown-folding'
+
+" Tabularize Example
+" 1. Algin equals (variable assignment)
+" 2. Colon Align (JSON Type)
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+
 " Themes
 Plug 'morhetz/gruvbox'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
+
+Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
 
 " Briefly highlight which text was yanked.
 Plug 'machakann/vim-highlightedyank'
 
-" Automatically set 'shiftwidth' + 'expandtab' (indention) based on file type.
-Plug 'tpope/vim-sleuth'
-
 " Tags
 Plug 'alvan/vim-closetag' " todo: goto the repo to configure
 Plug 'tpope/vim-surround'
 
-" https://github.com/Raimondi/delimitMate/blob/master/doc/delimitMate.txt
+" Motion
 Plug 'Raimondi/delimitMate'
-
-" Motions -- even the basic config looks so freaking awesome
-" https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-repeat'
 Plug 't9md/vim-choosewin'
 Plug 'psliwka/vim-smoothie'
-Plug 'jdhao/better-escape.vim'
 
 " Writing
 Plug 'vimwiki/vimwiki'
 Plug 'Alok/notational-fzf-vim'
 Plug 'ferrine/md-img-paste.vim'
+Plug 'sukima/vim-tiddlywiki'
 
 Plug 'junegunn/goyo.vim'
 Plug 'mattn/calendar-vim'
 Plug 'junegunn/limelight.vim'
 
+" Displays indentation line
 Plug 'Yggdroot/indentLine'
 
-" todo: coc-vim, coc-pair
-" https://freshman.tech/vim-javascript/
-" https://github.com/BrodieRobertson/dotfiles/blob/master/config/nvim/plugconfig/coc.vim
 Plug 'tbabej/taskwiki'
-Plug 'plasticboy/vim-markdown'
+Plug 'jdhao/better-escape.vim'
 
 call plug#end()
 
-" Resources ***
-" https://bluz71.github.io/2017/05/21/vim-plugins-i-like.html
+" }}}
 
+" Term GUI Colors {{{
 if exists('+termguicolors')
     let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
 endif
-
+" }}}
+" Common Setups {{{
 syntax on
 
 " https://arisweedler.medium.com/tab-settings-in-vim-1ea0863c5990
@@ -84,8 +91,7 @@ set number
 set relativenumber
 set textwidth=80
 
-" if you want to stop line wrapping
-" set nowrap
+" set nowrap " stop line wrapping
 
 " https://til.hashrocket.com/posts/f5531b6da0-backspace-options
 set backspace=indent,eol,start " allow backspacing over these items
@@ -104,66 +110,116 @@ set hidden
 set updatetime=250
 set mouse=a
 set noshowmode
+set wildmenu
 
-" Easy Save (ctrl s messes up SSH)
+" }}}
+
+" VimR {{{
+" ==============================
+
+if has("gui_vimr")
+    let mapleader = ","
+    noremap <leader>1 1gt
+    noremap <leader>2 2gt
+    noremap <leader>3 3gt
+    noremap <leader>4 4gt
+    noremap <leader>5 5gt
+    noremap <leader>6 6gt
+endif
+" }}}
+
+
+" Easy Save {{{
+" Ctrl + s messes up SSH
 " https://stackoverflow.com/questions/3446320
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
-
-" Clear highlighting for search terms
+" }}}
+" Clear Highlight - Search Terms {{{
 noremap <silent> <C-_> :nohlsearch<CR>
 inoremap <silent> <C-_> <C-o>:nohlsearch<CR>
-
-" Better Escape
+" }}}
+" Better Escape {{{
 let g:better_escape_shortcut = ['hh']
 let g:better_escape_interval = 120
-
-" Show help pane in Vertical
+" }}}
+" Help Pane - Vertical {{{
 cabbrev help vert help
 cabbrev h vert h
-
-" Auto Format, this is also used by TaskWiki
+" }}}
+" Load Python 3 {{{
+" Auto Format Uses it
 let g:python3_host_prog="/usr/local/bin/python3"
-
-" Delimit Pair
+" }}}
+" Delimit Pair {{{
 let delimitMate_matchpairs = "(:),[:],{:}"
-
-" Keep cursor at the bottom of the visual selection after you yank it
+" }}}
+" Yank - Keep Cursor at the Bottom {{{
 vmap y ygv<Esc>
-
-" Make tab go to the matching pair item (love this feature)
+" }}}
+" Tab Goto Matching Pair (eg. brackets){{{
 nnoremap <Tab> %
-
-" Disables automatic commenting on newline:
+" }}}
+" Disables automatic commenting on newline {{{
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Toggle Number Line
+" }}}
+" Toggle Number Line {{{
 :augroup numbertoggle
 :  autocmd!
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
-
-" Map yanked to clipboard
+" }}}
+" Yank to Clipboard {{{
 set clipboard=unnamedplus
-
-" Always show line number in Vim Help
+" }}}
+" Vim Help - Always Show Line Number {{{
 autocmd FileType help  setlocal number
-
-" ChooseWin
+" }}}
+" ChooseWin {{{
 nmap - <Plug>(choosewin)
-
-" Automatically deletes all trailing whitespace on save.
+" }}}
+" Delete Trailing White Spaces on Save {{{
 autocmd BufWritePre * %s/\s\+$//e
-
-" Disable default cheatsheet
+" }}}
+" Cheatsheet Default Disable {{{
 let g:cheat40_use_default = 0
-
-" Forward Delete
+" }}}
+" Forward Delete {{{
 inoremap <C-d> <Esc>lxi
+" }}}
 
+" Markdown {{{
+" ==============================
+
+" this has no effect
+" let g:vim_markdown_auto_insert_bullets = 1
+
+" https://github.com/plasticboy/vim-markdown/issues/126#issuecomment-640890790
+" autocmd filetype markdown set formatoptions+=ro
+" autocmd filetype markdown set comments=b:*,b:-,b:+,b:1,n:>
+
+" https://github.com/plasticboy/vim-markdown/issues/126#issuecomment-485579068
+autocmd filetype markdown set indentexpr=
+
+" }}}
+" Folding {{{
 " ============================
-" Auto Save : Undo Change
+
+set foldmethod=manual
+set foldlevel=99
+nnoremap <Space><Space> za
+
+if has("autocmd")
+    filetype plugin indent on
+endif
+
+" https://superuser.com/questions/560149/
+autocmd BufRead ~/.config/nvim/init.vim setlocal foldmethod=marker
+autocmd BufRead ~/.config/kitty/kitty.conf setlocal foldmethod=marker
+
+" }}}
+" Auto Save: Undo Change {{{
 " ============================
 
 let g:auto_save        = 1
@@ -175,8 +231,8 @@ set undodir=$HOME/.local/share/vim/undo
 set undofile
 set undolevels=1000 undoreload=10000
 
-" ============================
-" Auto Reload
+" }}}
+" Auto Reload {{{
 " ============================
 
 set autoread
@@ -191,8 +247,8 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
 autocmd FileChangedShellPost *
             \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-" ============================
-" Make inner change text motions extendeded (*nixcasts)
+" }}}
+" Inner Change Text Motion Todo: Explore {{{
 " ============================
 
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
@@ -207,16 +263,8 @@ for item in items
     exe "nnoremap va".item." F".item."vf".item
 endfor
 
-" ============================
-" Code Folding
-" ============================
-
-set foldmethod=indent
-set foldlevel=99
-nnoremap <Space><Space> za
-
-" ============================
-" Indent Guides
+" }}}
+" Indent Guides {{{
 " ============================
 
 let g:indentLine_color_gui = '#777777'
@@ -225,8 +273,8 @@ let g:indentLine_setConceal = 1
 let g:indentLine_conceallevel = 1
 let g:indentLine_concealcursor = ""
 
-" ============================
-" FZF - Fuzzy Search
+" }}}
+" FZF - Fuzzy Search {{{
 " ============================
 
 map <C-f> <Esc><Esc>:Files!<CR>
@@ -246,8 +294,8 @@ nnoremap <silent> <Leader>l :Lines<CR>
 
 let $FZF_DEFAULT_COMMAND = 'find . -not -path "*/\.git*" -type f -print'
 
-" ============================
-" Goyo | Limelight
+" }}}
+" Goyo | Limelight {{{
 " ============================
 
 let mapleader = ","
@@ -275,13 +323,13 @@ let g:limelight_eop = '\ze\n^\s'
 " Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
-" ============================
-" Gruvbox Theme | Lightline
+" }}}
+" Gruvbox Theme | Lightline {{{
 " ============================
 
 autocmd OptionSet background
-    \ execute "source ~/.config/nvim/plugged/lightline-gruvbox.vim/plugin/lightline-gruvbox.vim"
-    \ | call lightline#colorscheme() | call lightline#update()
+            \ execute "source ~/.config/nvim/plugged/lightline-gruvbox.vim/plugin/lightline-gruvbox.vim"
+            \ | call lightline#colorscheme() | call lightline#update()
 
 let g:gruvbox_contrast_light='soft'
 let g:gruvbox_contrast_dark='soft'
@@ -301,10 +349,13 @@ endfunction
 
 call ChangeBackground()
 
-" autocmd SigUSR1 * call ChangeBackground()
+if system("echo $TERM") =~ 'xterm-256'
+    set background=dark
+endif
 
-" ============================
-" Spell Checking
+" }}}
+
+" Spell Checking {{{
 " ============================
 
 let mapleader = ","
@@ -325,8 +376,8 @@ hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
 hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
 hi SpellCap cterm=underline ctermfg=203 guifg=#ff5f5f
 
-" ============================
-" Split Pane
+" }}}
+" Split Pane {{{
 " ============================
 
 let mapleader=","
@@ -350,24 +401,22 @@ nnoremap ¬ :rightb vsp new<CR>
 " Closing splits in a sane way
 nnoremap <C-q> :q<CR>
 nnoremap <S-Q> :only<CR>
-
+" }}}
+" EasyMotion {{{
 " ============================
-" EasyMotion
-" ============================
 
-" Map easy motion to search
+let g:EasyMotion_do_mapping = 0
+
 nmap f <Plug>(easymotion-overwin-f2)
 nmap / <Plug>(easymotion-overwin-line)
 nmap <leader>/ <Plug>(easymotion-overwin-w)
 
-" Make sure <leader><leader> isnt remapped
-let g:EasyMotion_do_mapping = 0
-
-" Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
+let g:EasyMotion_smartsign_us = 1
 
-" ============================
-" VimWiki
+nmap s <Plug>(easymotion-s)
+" }}}
+" VimWiki {{{
 " ============================
 
 let g:vimwiki_list = [
@@ -376,14 +425,14 @@ let g:vimwiki_list = [
 " https://github.com/vimwiki/vimwiki/issues/255
 " https://stackoverflow.com/questions/16059716
 autocmd FileType vimwiki nunmap <buffer> <CR>
-autocmd FileType vimwiki nmap <buffer> <Plug>VimwikiFollowLink
+autocmd FileType vimwiki nmap <buffer><leader><CR> <Plug>VimwikiFollowLink
 
 " Makes vimwiki markdown links as [text](text.md) instead of [text](text)
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 
 " Notational Velocity
-let g:nv_search_paths = ['~/Box/wiki']
+let g:nv_search_paths = ['~/Box/wiki', '~/Box/notes']
 nnoremap <leader>e :NV<CR>
 
 " Saving Image
@@ -391,10 +440,11 @@ autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownCli
 " there are some defaults for image directory and image name, you can change them
 " let g:mdip_imgdir = 'img'
 " let g:mdip_imgname = 'image'
+" }}}
+" Nerd Commenter {{{
+" ============================
 
-" ============================
-" Nerd Commenter
-" ============================
+filetype plugin on
 
 " " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
@@ -410,12 +460,9 @@ let g:NERDSpaceDelims = 1
 " " to bind Ctmd+/ to ++ (mapped this in keyboard maestro)
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
-
-
+" }}}
+" Fern {{{
 " ============================
-" Fern
-" ============================
-
 let g:fern#disable_default_mappings   = 1
 let g:fern#disable_drawer_auto_quit   = 1
 let g:fern#disable_viewer_hide_cursor = 1
@@ -466,3 +513,14 @@ augroup END
 let g:fern_git_status#disable_ignored    = 1
 let g:fern_git_status#disable_untracked  = 1
 let g:fern_git_status#disable_submodules = 1
+" }}}
+
+" References {{{
+" https://bluz71.github.io/2017/05/21/vim-plugins-i-like.html
+
+" todo: coc-vim, coc-pair
+" https://freshman.tech/vim-javascript/
+" https://github.com/BrodieRobertson/dotfiles/blob/master/config/nvim/plugconfig/coc.vim
+
+" autocmd SigUSR1 * call ChangeBackground()
+" }}}
