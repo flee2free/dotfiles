@@ -16,6 +16,7 @@ export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/lib/flutter/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.rubies/ruby-3.0.1/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -62,7 +63,7 @@ alias marta="open -a Marta"
 
 alias t="timetrap"
 
-alias l="lsd -lFh"
+alias l="ls"
 alias ls="lsd"
 alias la="lsd -lAFh"
 alias ll="lsd -lh"
