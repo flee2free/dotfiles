@@ -1,4 +1,3 @@
-
 # skhd --observe
 
 ## quickly restart the yabai launch agent
@@ -8,11 +7,7 @@ ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # 0x5A : terminal-notifier -message "lshift - x"
 # lshift - x : terminal-notifier -message "$(yabai -m query --windows --window | jq -re ".id")"
 
-## open terminal
-hyper - return : open -a iTerm
-
-## hide application
-# 0x5A : skhd -k "cmd - h" # 0x5A is the "F20" key
+hyper - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
 
 ## swap window
 hyper - 8 : yabai -m window --swap west
@@ -67,4 +62,5 @@ hyper - h : yabai -m window --focus prev \
 shift + cmd - space : \
     yabai -m window --toggle float; \
     yabai -m window --toggle sticky; \
+    yabai -m window --toggle border; \
     yabai -m window --toggle topmost;
