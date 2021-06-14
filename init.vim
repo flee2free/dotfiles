@@ -64,6 +64,10 @@ Plug 'Yggdroot/indentLine'
 Plug 'tbabej/taskwiki'
 Plug 'jdhao/better-escape.vim'
 
+" Plugins to Tryout
+" https://github.com/ycm-core/YouCompleteMe
+" https://github.com/justinmk/vim-sneak
+" https://github.com/wincent/command-t
 call plug#end()
 
 " }}}
@@ -163,12 +167,12 @@ nnoremap <Tab> %
 " Disables automatic commenting on newline {{{
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " }}}
-" Toggle Number Line {{{
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+" Toggle Number Line -- Disabled {{{
+" :augroup numbertoggle
+" :  autocmd!
+" :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+" :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" :augroup END
 " }}}
 " Yank to Clipboard {{{
 set clipboard=unnamedplus
@@ -217,6 +221,7 @@ endif
 " https://superuser.com/questions/560149/
 autocmd BufRead ~/.config/nvim/init.vim setlocal foldmethod=marker
 autocmd BufRead ~/.config/kitty/kitty.conf setlocal foldmethod=marker
+autocmd BufRead ~/.gvimrc setlocal foldmethod=marker
 
 " }}}
 " Auto Save: Undo Change {{{
@@ -513,6 +518,20 @@ augroup END
 let g:fern_git_status#disable_ignored    = 1
 let g:fern_git_status#disable_untracked  = 1
 let g:fern_git_status#disable_submodules = 1
+" }}}
+
+" Performance Settings {{{
+" https://github.com/tmux/tmux/issues/353
+" https://apple.stackexchange.com/questions/10467
+" change keyboard repeat rate
+set nocursorline
+set norelativenumber
+set foldlevel=0
+set foldmethod=manual
+set nolist
+set nonumber
+set lazyredraw
+set ttyfast
 " }}}
 
 " References {{{
