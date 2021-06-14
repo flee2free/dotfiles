@@ -17,8 +17,8 @@ window:
   dynamic_padding: true
 
   padding:
-    x: 10
-    y: 10
+    x: 15
+    y: 0
 
   dimensions:
     columns: 110
