@@ -33,7 +33,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 MYVIMRC="~/.config/nvim/init.vim"
 
 plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting common-aliases
-				colored-man-pages rand-quote brew git zsh-z)
+				colored-man-pages rand-quote brew zsh-z)
 
 ZSH_DISABLE_COMPFIX="true"
 source $ZSH/oh-my-zsh.sh
@@ -193,3 +193,8 @@ _gen_fzf_default_opts
 # https://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s#3448551
 # used ctrl s in vim to save, if this messes up anything in the future you know
 # where to look at
+
+# https://github.com/kovidgoyal/kitty/issues/930
+# https://itectec.com/superuser/whats-the-zsh-equivalent-of-bashs-prompt_command/
+# custom tab title for Kitty (doesn't work)
+# precmd() {print -Pn "\e]0;%~\a"}
