@@ -5,3 +5,5 @@ cp ~/.config/skhd/skhdrc ./
 cp ~/.tmux.conf ./tmux.conf
 cp ~/.config/yabai/yabairc ./
 cp ~/.zshrc ./zshrc
+cp ~/.config/kitty/kitty.conf ./
+cp ~/.gvimrc ./gvimrc
