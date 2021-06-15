@@ -86,6 +86,7 @@ yabai -m rule --add app="^RH Timer$" manage=off
 yabai -m rule --add app="^Bartender 4$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Finder$" sticky=on layer=above border=off manage=off
+yabai -m rule --add app="^Marta$" sticky=on border=off manage=off
 yabai -m rule --add app="^Telegram$" sticky=on manage=off
 yabai -m rule --add app="^Transmission$" sticky=on manage=off
 
