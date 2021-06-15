@@ -1,0 +1,40 @@
+environment {
+    terminal "Kitty"
+    textEditor "MacVim"
+}
+
+behavior {
+    theme "Classic"
+    dateFormat {
+        normal "%x"
+    }
+    timeFormat {
+        separator " "
+        normal "%-H:%M"
+    }
+    volumeSpace {
+        show "never"
+    }
+
+    actions {
+        core.preferences.use.text.editor false
+    }
+
+}
+
+fonts {
+    actionBar ["Fira Code Retina" 10]
+    breadcrumbs [ "Fira Code Retina" 12]
+    virtualTabs [ "Helvetica Neue Bold Italic" 12 ]
+    files [ "Dank Mono" 14 ]
+    statusBar [ "Fira CodeMedium" 12 ]
+    tableHeader [ "Fira Code Retina" 12 ]
+    tabs [ "Fira Code Medium" 11 ]
+    preferences [ "Monaco" 12 ]
+}
+
+keyBindings {
+    "Cmd+l" "core.actions"
+    "Cmd+o" "core.lookup"
+    
+}
