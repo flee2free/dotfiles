@@ -24,9 +24,9 @@ behavior {
 
 fonts {
     actionBar ["Fira Code Retina" 10]
-    breadcrumbs [ "Fira Code Retina" 12]
+    breadcrumbs [ "Fira Code Retina" 13]
     virtualTabs [ "Helvetica Neue Bold Italic" 12 ]
-    files [ "Dank Mono" 14 ]
+    files [ "Dank Mono" 15 ]
     statusBar [ "Fira CodeMedium" 12 ]
     tableHeader [ "Fira Code Retina" 12 ]
     tabs [ "Fira Code Medium" 11 ]
