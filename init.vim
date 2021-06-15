@@ -140,8 +140,12 @@ nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
 " }}}
 " Clear Highlight - Search Terms {{{
-noremap <silent> <C-_> :nohlsearch<CR>
-inoremap <silent> <C-_> <C-o>:nohlsearch<CR>
+noremap <silent> <c-_> :noh<CR>
+inoremap <silent> <c-_> <C-o>:noh<CR>
+
+" Testing Key Trigger w/t Echo
+" map <C-_> :echomsg "<C-_> Triggered"<CR>
+
 " }}}
 " Better Escape {{{
 let g:better_escape_shortcut = ['hh']
