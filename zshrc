@@ -1,9 +1,5 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+ENABLE_CORRECTION="true"
+export EDITOR=nvim
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -22,9 +18,7 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 export BAT_THEME="gruvbox-light"
-
-# theunraveler
-ZSH_THEME="powerlevel10k/powerlevel10k"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-15.0.1.jdk/Contents/Home
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS="true"
@@ -37,16 +31,13 @@ plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting common-aliases
 
 ZSH_DISABLE_COMPFIX="true"
 source $ZSH/oh-my-zsh.sh
-# npm install --global pure-prompt
-# autoload -U promptinit; promptinit
-# prompt pure
+
+autoload -U promptinit; promptinit
+prompt pure
 
 # Put a space infront of a command to exclude it from the history
 setopt histignorespace
 set -o ignoreeof  # Same as setting IGNOREEOF=10
-
-# Prevent the TMUX client to exit
-# set -o ignoreeof
 
 # Figure out a better way to place these aliases
 alias cls="clear"
@@ -87,25 +78,16 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Mode Change Configuration VI Mode
-function zle-keymap-select zle-line-init
+function zle-keymap-select zle-line-init zle-line-finish
 {
-    # change cursor shape in iTerm2
     case $KEYMAP in
-        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+        vicmd)      print -n '\033[1 q';; # block cursor
+        viins|main) print -n '\033[5 q';; # line cursor
     esac
-
-    zle reset-prompt
-
-    zle -R
-}
-
-function zle-line-finish
-{
-    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
 }
 
 zle -N zle-line-init
@@ -134,9 +116,6 @@ bindkey -s '^f' 'cd_with_fzf\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# Setting up Java Home
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-15.0.1.jdk/Contents/Home
-
 # Keybinding for Autosuggestion
 bindkey '^n' autosuggest-accept
 
@@ -152,9 +131,6 @@ SAVEHIST=1000000000
 #
 # unset __conda_setup
 # <<< conda init <<<
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # FZF Color Scheme
 _gen_fzf_default_opts() {
