@@ -94,7 +94,7 @@ yabai -m rule --add app="^PCalc$" layer=above manage=off
 yabai -m rule --add app="^Streaks$" layer=above manage=off border=off sticky=on
 
 yabai -m rule --add app="^Qbserve$" manage=off
-yabai -m rule --add app="^Keychain Access$" manage=off
+yabai -m rule --add app="^Keychain Access$" manage=off border=off
 yabai -m rule --add app="^AppCleaner$" manage=off
 yabai -m rule --add app="^BetterTouchTool$" manage=off
 yabai -m rule --add app="^Keyboard Maestro$" manage=off
