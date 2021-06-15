@@ -7,3 +7,4 @@ cp ~/.config/yabai/yabairc ./
 cp ~/.zshrc ./zshrc
 cp ~/.config/kitty/kitty.conf ./
 cp ~/.gvimrc ./gvimrc
+cp ~/Library/Application\ Support/org.yanex.marta/conf.marco ./marta_config.marco
