@@ -123,15 +123,6 @@ bindkey '^n' autosuggest-accept
 HISTSIZE=1000000000
 SAVEHIST=1000000000
 
-# >>> conda init >>>
-# __conda_setup="$(CONDA_REPORT_ERRORS=false '/opt/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     \eval "$__conda_setup"
-# fi
-#
-# unset __conda_setup
-# <<< conda init <<<
-
 # FZF Color Scheme
 _gen_fzf_default_opts() {
   local base03="234"
@@ -172,5 +163,21 @@ _gen_fzf_default_opts
 
 # https://github.com/kovidgoyal/kitty/issues/930
 # https://itectec.com/superuser/whats-the-zsh-equivalent-of-bashs-prompt_command/
-# custom tab title for Kitty (doesn't work)
+# custom tab title for Kitty (doesn't work) : Needed to disable auto title
 # precmd() {print -Pn "\e]0;%~\a"}
+
+DISABLE_AUTO_TITLE="true"
+# https://superuser.com/questions/633926/
+precmd() { print -Pn "\e]0;   \a" }
+
+
+
+
+# >>> conda init >>>
+# __conda_setup="$(CONDA_REPORT_ERRORS=false '/opt/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     \eval "$__conda_setup"
+# fi
+#
+# unset __conda_setup
+# <<< conda init <<<
