@@ -463,7 +463,7 @@ let g:fern#disable_default_mappings   = 1
 let g:fern#disable_drawer_auto_quit   = 1
 let g:fern#disable_viewer_hide_cursor = 1
 
-noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
+noremap <silent> <Leader>d :Fern . -reveal=% -drawer -width=35 -toggle<CR><C-w>=
 
 function! FernInit() abort
     nmap <buffer><expr>
@@ -535,7 +535,7 @@ set ttyfast
 " autocmd SigUSR1 * call ChangeBackground()
 " }}}
 
-" VimR {{{
+" VimR + MacVim {{{
 " ==============================
 
 if has("gui_vimr")
@@ -549,6 +549,22 @@ if has("gui_vimr")
 
     set foldcolumn=2
 endif
+
+if has("gui_macvim")
+    set background=dark
+    set textwidth=60
+    let g:goyo_width=60
+    autocmd VimEnter * Goyo 100%
+endif
+
+" Reformat text with the set text width
+" https://thoughtbot.com/blog/wrap-existing-text-at-80-characters-in-vim
+
+" Making the Goyo Height to 100%
+" https://github.com/junegunn/goyo.vim/issues/100
+
+" autocmd BufEnter */vim-anywhere* Goyo
+" Goyo 50%+25%x50%-25%
 
 " }}}
 
