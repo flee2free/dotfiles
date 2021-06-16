@@ -118,19 +118,6 @@ set wildmenu
 
 " }}}
 
-" VimR {{{
-" ==============================
-
-if has("gui_vimr")
-    let mapleader = ","
-    noremap <leader>1 1gt
-    noremap <leader>2 2gt
-    noremap <leader>3 3gt
-    noremap <leader>4 4gt
-    noremap <leader>5 5gt
-    noremap <leader>6 6gt
-endif
-" }}}
 
 
 " Easy Save {{{
@@ -547,3 +534,21 @@ set ttyfast
 
 " autocmd SigUSR1 * call ChangeBackground()
 " }}}
+
+" VimR {{{
+" ==============================
+
+if has("gui_vimr")
+    let mapleader = ","
+    noremap <leader>1 1gt
+    noremap <leader>2 2gt
+    noremap <leader>3 3gt
+    noremap <leader>4 4gt
+    noremap <leader>5 5gt
+    noremap <leader>6 6gt
+
+    set foldcolumn=2
+endif
+
+" }}}
+
