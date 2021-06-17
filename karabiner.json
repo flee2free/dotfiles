@@ -158,6 +158,17 @@
                         "description": "Nerd Commenter",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^org\\.vim\\.MacVim$",
+                                            "^io\\.alacritty$",
+                                            "^com\\.qvacua\\.VimR$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "slash",
                                     "modifiers": {
@@ -180,17 +191,7 @@
                                         ]
                                     }
                                 ],
-                                "type": "basic",
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^net\\.kovidgoyal\\.kitty$",
-                                            "^org\\.vim\\.MacVim$",
-                                            "^io\\.alacritty$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ]
+                                "type": "basic"
                             }
                         ]
                     },
@@ -220,7 +221,6 @@
                             }
                         ]
                     },
-
                     {
                         "description": "Mapping Ctrl + Cmd + q to F1 (Default Screen Lock)",
                         "manipulators": [
@@ -2865,18 +2865,19 @@
                                 ],
                                 "type": "basic"
                             }
-
                         ]
                     },
                     {
                         "description": "Easy Control - Left",
                         "manipulators": [
                             {
-                                "conditions":[{
-                                    "name": "easy_control",
-                                    "type": "variable_if",
-                                    "value": 1
-                                }],
+                                "conditions": [
+                                    {
+                                        "name": "easy_control",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
@@ -2912,7 +2913,9 @@
                                             "value": 1
                                         }
                                     },
-                                    {"key_code": "left_control"}
+                                    {
+                                        "key_code": "left_control"
+                                    }
                                 ],
                                 "type": "basic"
                             }
@@ -2922,11 +2925,13 @@
                         "description": "Easy Command - Left",
                         "manipulators": [
                             {
-                                "conditions":[{
-                                    "name": "easy_command",
-                                    "type": "variable_if",
-                                    "value": 1
-                                }],
+                                "conditions": [
+                                    {
+                                        "name": "easy_command",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
@@ -2962,7 +2967,9 @@
                                             "value": 1
                                         }
                                     },
-                                    {"key_code": "left_command"}
+                                    {
+                                        "key_code": "left_command"
+                                    }
                                 ],
                                 "type": "basic"
                             }
@@ -2972,11 +2979,13 @@
                         "description": "Easy Command - Right",
                         "manipulators": [
                             {
-                                "conditions":[{
-                                    "name": "easy_command",
-                                    "type": "variable_if",
-                                    "value": 1
-                                }],
+                                "conditions": [
+                                    {
+                                        "name": "easy_command",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
@@ -3012,7 +3021,9 @@
                                             "value": 1
                                         }
                                     },
-                                    {"key_code": "left_command"}
+                                    {
+                                        "key_code": "left_command"
+                                    }
                                 ],
                                 "type": "basic"
                             }
@@ -3222,6 +3233,45 @@
                                     },
                                     {
                                         "shell_command": "open -a 'Brave Browser.app'"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "simultaneous": [
+                                        {
+                                            "key_code": "open_bracket"
+                                        },
+                                        {
+                                            "key_code": "t"
+                                        }
+                                    ],
+                                    "simultaneous_options": {
+                                        "key_down_order": "strict",
+                                        "key_up_order": "strict_inverse",
+                                        "to_after_key_up": [
+                                            {
+                                                "set_variable": {
+                                                    "name": "launcher_mode_v4",
+                                                    "value": 0
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                "parameters": {
+                                    "basic.simultaneous_threshold_milliseconds": 500
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "launcher_mode_v4",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "shell_command": "open -a 'kitty.app'"
                                     }
                                 ],
                                 "type": "basic"
