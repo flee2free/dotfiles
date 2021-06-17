@@ -1,4 +1,4 @@
-" PLUG {{{
+" PLUG: {{{
 set nocompatible
 
 call plug#begin("~/.config/nvim/plugged")
@@ -79,7 +79,8 @@ if exists('+termguicolors')
     set termguicolors
 endif
 " }}}
-" Common Setups {{{
+
+" Common Setups: {{{
 syntax on
 
 " https://arisweedler.medium.com/tab-settings-in-vim-1ea0863c5990
@@ -118,15 +119,20 @@ set wildmenu
 
 " }}}
 
+" Wrapped Line Motion: {{{
+" https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+" }}}
 
-
-" Easy Save {{{
+" Easy Save: {{{
 " Ctrl + s messes up SSH
 " https://stackoverflow.com/questions/3446320
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
 " }}}
-" Clear Highlight - Search Terms {{{
+
+" Clear Highlight Search Terms: {{{
 noremap <silent> <c-_> :noh<CR>
 inoremap <silent> <c-_> <C-o>:noh<CR>
 
@@ -134,57 +140,71 @@ inoremap <silent> <c-_> <C-o>:noh<CR>
 " map <C-_> :echomsg "<C-_> Triggered"<CR>
 
 " }}}
-" Better Escape {{{
+
+" Better Escape: {{{
 let g:better_escape_shortcut = ['hh']
 let g:better_escape_interval = 120
 " }}}
-" Help Pane - Vertical {{{
+
+" Help Pane Vertical: {{{
 cabbrev help vert help
 cabbrev h vert h
 " }}}
-" Load Python 3 {{{
+
+" Load Python_3: {{{
 " Auto Format Uses it
 let g:python3_host_prog="/usr/local/bin/python3"
 " }}}
-" Delimit Pair {{{
+
+" Delimit Pair: {{{
 let delimitMate_matchpairs = "(:),[:],{:}"
 " }}}
-" Yank - Keep Cursor at the Bottom {{{
+
+" Yank: - Keep Cursor at the Bottom {{{
 vmap y ygv<Esc>
 " }}}
-" Tab Goto Matching Pair (eg. brackets){{{
+
+" Tab Goto Matching Pair: (eg. brackets){{{
 nnoremap <Tab> %
 " }}}
-" Disables automatic commenting on newline {{{
+
+" Disables Automatic Commenting: (new line) {{{
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " }}}
-" Toggle Number Line -- Disabled {{{
+
+" Toggle Number Line: -- Disabled {{{
 " :augroup numbertoggle
 " :  autocmd!
 " :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 " :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 " :augroup END
 " }}}
-" Yank to Clipboard {{{
-set clipboard=unnamedplus
+
+" Yank: to Clipboard {{{
+set clipboard=unnamed
 " }}}
-" Vim Help - Always Show Line Number {{{
+
+" Vim Help: - Always Show Line Number {{{
 autocmd FileType help  setlocal number
 " }}}
-" ChooseWin {{{
+
+" ChooseWin: {{{
 nmap - <Plug>(choosewin)
 " }}}
-" Delete Trailing White Spaces on Save {{{
+
+" Delete Trailing White Spaces: on Save {{{
 autocmd BufWritePre * %s/\s\+$//e
 " }}}
-" Cheatsheet Default Disable {{{
+
+" Cheatsheet Default Disable: {{{
 let g:cheat40_use_default = 0
 " }}}
-" Forward Delete {{{
+
+" Forward Delete: {{{
 inoremap <C-d> <Esc>lxi
 " }}}
 
-" Markdown {{{
+" Markdown: {{{
 " ==============================
 
 " this has no effect
@@ -198,7 +218,8 @@ inoremap <C-d> <Esc>lxi
 autocmd filetype markdown set indentexpr=
 
 " }}}
-" Folding {{{
+
+" Folding: {{{
 " ============================
 
 set foldmethod=manual
@@ -215,6 +236,7 @@ autocmd BufRead ~/.config/kitty/kitty.conf setlocal foldmethod=marker
 autocmd BufRead ~/.gvimrc setlocal foldmethod=marker
 
 " }}}
+
 " Auto Save: Undo Change {{{
 " ============================
 
@@ -228,7 +250,8 @@ set undofile
 set undolevels=1000 undoreload=10000
 
 " }}}
-" Auto Reload {{{
+
+" Auto Reload: {{{
 " ============================
 
 set autoread
@@ -244,7 +267,8 @@ autocmd FileChangedShellPost *
             \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " }}}
-" Inner Change Text Motion Todo: Explore {{{
+
+" Inner Change Text Motion: Todo Explore {{{
 " ============================
 
 let items = [ "<bar>", "\\", "/", ":", ".", "*", "_" ]
@@ -260,7 +284,8 @@ for item in items
 endfor
 
 " }}}
-" Indent Guides {{{
+
+" Indent Guides: {{{
 " ============================
 
 let g:indentLine_color_gui = '#777777'
@@ -270,7 +295,8 @@ let g:indentLine_conceallevel = 1
 let g:indentLine_concealcursor = ""
 
 " }}}
-" FZF - Fuzzy Search {{{
+
+" FZF: Fuzzy Search {{{
 " ============================
 
 map <C-f> <Esc><Esc>:Files!<CR>
@@ -291,7 +317,8 @@ nnoremap <silent> <Leader>l :Lines<CR>
 let $FZF_DEFAULT_COMMAND = 'find . -not -path "*/\.git*" -type f -print'
 
 " }}}
-" Goyo | Limelight {{{
+
+" Goyo Limelight: {{{
 " ============================
 
 let mapleader = ","
@@ -320,7 +347,8 @@ let g:limelight_eop = '\ze\n^\s'
 let g:limelight_priority = -1
 
 " }}}
-" Gruvbox Theme | Lightline {{{
+
+" Gruvbox Lightline Theme: {{{
 " ============================
 
 autocmd OptionSet background
@@ -351,7 +379,7 @@ endif
 
 " }}}
 
-" Spell Checking {{{
+" Spell Checking: {{{
 " ============================
 
 let mapleader = ","
@@ -373,7 +401,8 @@ hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
 hi SpellCap cterm=underline ctermfg=203 guifg=#ff5f5f
 
 " }}}
-" Split Pane {{{
+
+" Split Pane: {{{
 " ============================
 
 let mapleader=","
@@ -398,7 +427,8 @@ nnoremap ¬ :rightb vsp new<CR>
 nnoremap <C-q> :q<CR>
 nnoremap <S-Q> :only<CR>
 " }}}
-" EasyMotion {{{
+
+" EasyMotion: {{{
 " ============================
 
 let g:EasyMotion_do_mapping = 0
@@ -412,7 +442,8 @@ let g:EasyMotion_smartsign_us = 1
 
 nmap s <Plug>(easymotion-s)
 " }}}
-" VimWiki {{{
+
+" VimWiki: {{{
 " ============================
 
 let g:vimwiki_list = [
@@ -437,7 +468,8 @@ autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownCli
 " let g:mdip_imgdir = 'img'
 " let g:mdip_imgname = 'image'
 " }}}
-" Nerd Commenter {{{
+
+" Nerd Commenter: {{{
 " ============================
 
 filetype plugin on
@@ -457,7 +489,8 @@ let g:NERDSpaceDelims = 1
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 " }}}
-" Fern {{{
+
+" Fern: {{{
 " ============================
 let g:fern#disable_default_mappings   = 1
 let g:fern#disable_drawer_auto_quit   = 1
@@ -511,7 +544,7 @@ let g:fern_git_status#disable_untracked  = 1
 let g:fern_git_status#disable_submodules = 1
 " }}}
 
-" Performance Settings {{{
+" Performance Settings: {{{
 " https://github.com/tmux/tmux/issues/353
 " https://apple.stackexchange.com/questions/10467
 " change keyboard repeat rate
@@ -525,7 +558,7 @@ set lazyredraw
 set ttyfast
 " }}}
 
-" References {{{
+" References: {{{
 " https://bluz71.github.io/2017/05/21/vim-plugins-i-like.html
 
 " todo: coc-vim, coc-pair
@@ -535,7 +568,7 @@ set ttyfast
 " autocmd SigUSR1 * call ChangeBackground()
 " }}}
 
-" VimR + MacVim {{{
+" VimR MacVim Specific Settings: {{{
 " ==============================
 
 if has("gui_vimr")
@@ -552,9 +585,9 @@ endif
 
 if has("gui_macvim")
     set background=dark
-    set textwidth=60
-    let g:goyo_width=60
-    autocmd VimEnter * Goyo 100%
+    set textwidth=72
+    let g:goyo_width=72
+    autocmd VimEnter * Goyo 85%
 endif
 
 " Reformat text with the set text width
