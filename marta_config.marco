@@ -36,5 +36,17 @@ fonts {
 keyBindings {
     "Cmd+l" "core.actions"
     "Cmd+o" "core.lookup"
+    "Shift+Cmd+C" "core.path"
     
+}
+
+setup {
+    actionBar [
+        "core.edit"
+        "core.copy"
+        "core.move"
+        "core.rename"
+        "core.new.folder"
+        "core.ext.terminal.open"
+    ]
 }
