@@ -6,6 +6,10 @@ set mousehide
 
 set laststatus=0
 set noruler
+set noshowmode
+
+" https://stackoverflow.com/questions/17561706/vim-yank-does-not-seem-to-work
+set clipboard=unnamed
 
 " keep the error column always visible
 " tired this as a padding to the left, however this is not
@@ -23,7 +27,9 @@ set guioptions=
 
 " disabling the bell
 autocmd! GUIEnter * set vb t_vb=
-set background=dark
+" set background=dark
+
+" autocmd BufRead */vim-anywhere* set background=dark
 
 " Tabs Keyboard Mapping: {{{
 
