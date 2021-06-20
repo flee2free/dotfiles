@@ -27,13 +27,19 @@ DISABLE_MAGIC_FUNCTIONS="true"
 MYVIMRC="~/.config/nvim/init.vim"
 
 plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting common-aliases
-				colored-man-pages rand-quote brew zsh-z)
+				colored-man-pages rand-quote brew)
 
 ZSH_DISABLE_COMPFIX="true"
 source $ZSH/oh-my-zsh.sh
 
-autoload -U promptinit; promptinit
-prompt pure
+# ZSH_THEME="spaceship"
+SPACESHIP_DIR_SHOW=true
+SPACESHIP_DIR_TRUNC=0
+SPACESHIP_VI_MODE_SHOW=false
+SPACESHIP_EXEC_TIME_SHOW=false
+
+# autoload -U promptinit; promptinit
+# prompt pure
 
 # Put a space infront of a command to exclude it from the history
 setopt histignorespace
@@ -50,15 +56,39 @@ alias studio="open -a 'visual studio code'"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias cat="bat"
 alias marta="open -a Marta"
 
 alias t="timetrap"
 
-alias l="ls"
-alias ls="lsd"
-alias la="lsd -lAFh"
-alias ll="lsd -lh"
-alias lh="lsd -ld .?*"
+alias l='exa --classify --long --group --header'
+alias ll='l'
+alias ls='exa --classify --across --group-directories-first --sort name'
+
+alias la='exa -laFh' #long all classify header
+alias lh='exa --long --list-dirs .* --sort Name --header'
+
+alias lr='exa --sort Name --long --recurse'
+alias lsr='exa --sort Name --recurse --classify'
+alias lar='exa --sort Name --long --recurse --all -I .git'
+
+alias lt='exa --sort Name --long --tree' # --level=2
+alias lst='exa --sort Name --tree'
+alias lat='exa --sort Name --long --tree --all -I .git'
+
+# --git-ignores files listed in .gitignore
+alias llt='exa --all --group-directories-first --git-ignore --tree --level=2 --ignore-glob ".git"'
+
+# Todo: Check out the --git option as well
+
+# List only directories
+alias lsd='exa --only-dirs'
+
+alias lsx='ll --sort=Extension'     # Lists sorted by extension (GNU only).
+alias lsk='ll --sort=size -r'       # Lists sorted by size, largest last.
+alias lst='ll --sort=modified -r'   # Lists sorted by date, most recent last.
+alias lsc='llt -m'                  # Lists sorted by date, most recent last, shows change time.
+alias lsu='llt -u'                  # Lists sorted by date, most recent last, shows access time.
 
 alias tml="tmux ls"
 alias tma="tmux attach -t "
@@ -72,27 +102,11 @@ alias -s zip='unzip'
 alias -s bz4='tar -xjvf'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
-# List only directories
-# alias lsd='/bin/ls -l | grep "^d"'
-
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Mode Change Configuration VI Mode
-function zle-keymap-select zle-line-init zle-line-finish
-{
-    case $KEYMAP in
-        vicmd)      print -n '\033[1 q';; # block cursor
-        viins|main) print -n '\033[5 q';; # line cursor
-    esac
-}
-
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
 
 # Use lf to switch directories and bind it to ctrl-o
 lfcd() {
@@ -122,6 +136,35 @@ bindkey '^n' autosuggest-accept
 # History in cache directory:
 HISTSIZE=1000000000
 SAVEHIST=1000000000
+
+# https://superuser.com/questions/1242884/change-zsh-auto-titles-to-hide-user-and-host
+# https://stackoverflow.com/questions/13660636/what-is-percent-tilde-in-zsh/13660697#13660697
+DISABLE_AUTO_TITLE="false"
+ZSH_THEME_TERM_TITLE_IDLE="%~"
+
+# https://superuser.com/questions/633926/
+# precmd() { print -Pn '\e]0; $(basename "$PWD") \a' }
+
+# https://github.com/spaceship-prompt/spaceship-prompt/issues/157
+# Mode Change Configuration VI Mode
+function zle-keymap-select zle-line-init zle-line-finish
+{
+    case $KEYMAP in
+        vicmd)      print -n '\033[1 q';; # block cursor
+        viins|main) print -n '\033[5 q';; # line cursor
+    esac
+
+    # disabling this as the spaceship vi-mode change looks ugly
+    # zle reset-prompt zle -R # this was the line that did the trick
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
+
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt spaceship
 
 # FZF Color Scheme
 _gen_fzf_default_opts() {
@@ -156,22 +199,13 @@ _gen_fzf_default_opts() {
 }
 _gen_fzf_default_opts
 
-# Note:
-# https://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s#3448551
-# used ctrl s in vim to save, if this messes up anything in the future you know
-# where to look at
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
-# https://github.com/kovidgoyal/kitty/issues/930
-# https://itectec.com/superuser/whats-the-zsh-equivalent-of-bashs-prompt_command/
-# custom tab title for Kitty (doesn't work) : Needed to disable auto title
-# precmd() {print -Pn "\e]0;%~\a"}
+zplug "changyuheng/fz", defer:1
+zplug "rupa/z", use:z.sh
 
-DISABLE_AUTO_TITLE="true"
-# https://superuser.com/questions/633926/
-precmd() { print -Pn "\e]0;   \a" }
-
-
-
+zplug load
 
 # >>> conda init >>>
 # __conda_setup="$(CONDA_REPORT_ERRORS=false '/opt/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
@@ -181,3 +215,13 @@ precmd() { print -Pn "\e]0;   \a" }
 #
 # unset __conda_setup
 # <<< conda init <<<
+
+# Note:
+# https://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s#3448551
+# used ctrl s in vim to save, if this messes up anything in the future you know
+# where to look at
+
+# https://github.com/kovidgoyal/kitty/issues/930
+# https://itectec.com/superuser/whats-the-zsh-equivalent-of-bashs-prompt_command/
+# custom tab title for Kitty (doesn't work) : Needed to disable auto title
+# precmd() {print -Pn "\e]0;%~\a"}
