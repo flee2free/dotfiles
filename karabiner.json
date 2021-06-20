@@ -3345,7 +3345,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "f14"
+                                        "pointing_button": "button1"
                                     }
                                 ],
                                 "type": "basic"
@@ -3353,7 +3353,7 @@
                         ]
                     },
                     {
-                        "description": "Press left_command alone produces F15",
+                        "description": "Press left_command alone produces F15 (Mouse Button 1)",
                         "manipulators": [
                             {
                                 "from": {
@@ -3371,7 +3371,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "f15"
+                                        "pointing_button": "button1"
                                     }
                                 ],
                                 "type": "basic"
