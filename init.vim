@@ -117,6 +117,8 @@ set mouse=a
 set noshowmode
 set wildmenu
 
+nmap = xa
+
 " }}}
 
 " Wrapped Line Motion: {{{
@@ -157,7 +159,7 @@ let g:python3_host_prog="/usr/local/bin/python3"
 " }}}
 
 " Delimit Pair: {{{
-let delimitMate_matchpairs = "(:),[:],{:}"
+let delimitMate_matchpairs = "(:),[:],{:},<:>"
 " }}}
 
 " Yank: - Keep Cursor at the Bottom {{{
