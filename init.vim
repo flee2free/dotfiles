@@ -117,8 +117,6 @@ set mouse=a
 set noshowmode
 set wildmenu
 
-nmap = xa
-
 " }}}
 
 " Wrapped Line Motion: {{{
@@ -226,7 +224,7 @@ autocmd filetype markdown set indentexpr=
 
 set foldmethod=manual
 set foldlevel=99
-nnoremap <Space><Space> za
+" nnoremap <Space><Space> za
 
 if has("autocmd")
     filetype plugin indent on
@@ -442,7 +440,7 @@ nmap <leader>/ <Plug>(easymotion-overwin-w)
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_smartsign_us = 1
 
-nmap s <Plug>(easymotion-s)
+nmap <Space> <Plug>(easymotion-s)
 " }}}
 
 " VimWiki: {{{
