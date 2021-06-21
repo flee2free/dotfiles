@@ -20,6 +20,8 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export BAT_THEME="gruvbox-light"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-15.0.1.jdk/Contents/Home
 
+export NAVI_PATH="/Users/bbudhathoki/Cheat"
+
 # Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS="true"
 
@@ -60,6 +62,7 @@ alias cat="bat"
 alias marta="open -a Marta"
 
 alias t="timetrap"
+alias b="buku"
 
 alias l='exa --classify --long --group --header'
 alias ll='l'
@@ -140,10 +143,24 @@ SAVEHIST=1000000000
 # https://superuser.com/questions/1242884/change-zsh-auto-titles-to-hide-user-and-host
 # https://stackoverflow.com/questions/13660636/what-is-percent-tilde-in-zsh/13660697#13660697
 DISABLE_AUTO_TITLE="false"
-ZSH_THEME_TERM_TITLE_IDLE="%~"
+ZSH_THEME_TERM_TITLE_IDLE="%2~"
 
 # https://superuser.com/questions/633926/
+# https://tldp.org/HOWTO/Xterm-Title-4.html
 # precmd() { print -Pn '\e]0; $(basename "$PWD") \a' }
+
+# https://github.com/kovidgoyal/kitty/issues/610
+# function set-title-precmd() {
+    # printf "\e]2;%s\a" "${PWD/#$HOME/~}"
+# }
+#
+# function set-title-preexec() {
+    # printf "\e]2;%s\a" "$1"
+# }
+#
+# autoload -Uz add-zsh-hook
+# add-zsh-hook precmd set-title-precmd
+# add-zsh-hook preexec set-title-preexec
 
 # https://github.com/spaceship-prompt/spaceship-prompt/issues/157
 # Mode Change Configuration VI Mode
