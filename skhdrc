@@ -64,3 +64,16 @@ shift + cmd - space : \
     yabai -m window --toggle sticky; \
     yabai -m window --toggle border; \
     yabai -m window --toggle topmost;
+
+
+# Move Window to Next Display
+# todo: need to focus on the new display
+hyper - 0x33 : id="$(yabai -m query --windows | jq -re '.[] | select(.focused == 1)."id"')" && \
+    (yabai -m query --spaces --display next || yabai -m query --spaces --display prev) \
+    | jq -re '.[] | select(.visible == 1)."display"' \
+    | xargs -I{} yabai -m window --display {} && yabai -m window --focus "${id}"
+
+
+
+
+
