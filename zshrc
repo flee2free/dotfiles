@@ -1,4 +1,6 @@
-ENABLE_CORRECTION="true"
+# https://github.com/skywind3000/vim/blob/master/etc/zshrc.zsh
+
+ENABLE_CORRECTION="false"
 export EDITOR=nvim
 
 # Path to your oh-my-zsh installation.
@@ -42,10 +44,6 @@ SPACESHIP_EXEC_TIME_SHOW=false
 
 # autoload -U promptinit; promptinit
 # prompt pure
-
-# Put a space infront of a command to exclude it from the history
-setopt histignorespace
-set -o ignoreeof  # Same as setting IGNOREEOF=10
 
 # Figure out a better way to place these aliases
 alias cls="clear"
@@ -133,12 +131,22 @@ bindkey -s '^f' 'cd_with_fzf\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# Keybinding for Autosuggestion
-bindkey '^n' autosuggest-accept
-
 # History in cache directory:
 HISTSIZE=1000000000
 SAVEHIST=1000000000
+
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion
+
+set -o ignoreeof  # Same as setting IGNOREEOF=10
 
 # https://superuser.com/questions/1242884/change-zsh-auto-titles-to-hide-user-and-host
 # https://stackoverflow.com/questions/13660636/what-is-percent-tilde-in-zsh/13660697#13660697
@@ -173,11 +181,16 @@ function zle-keymap-select zle-line-init zle-line-finish
 
     # disabling this as the spaceship vi-mode change looks ugly
     # zle reset-prompt zle -R # this was the line that did the trick
+
+    zle reset-prompt zle -R
 }
 
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
+
+# To know more about ZLE (ZSH Line Editor)
+# https://sgeb.io/posts/2014/04/zsh-zle-custom-widgets/
 
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
@@ -242,3 +255,17 @@ zplug load
 # https://itectec.com/superuser/whats-the-zsh-equivalent-of-bashs-prompt_command/
 # custom tab title for Kitty (doesn't work) : Needed to disable auto title
 # precmd() {print -Pn "\e]0;%~\a"}
+
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=180"
+
+# Keybinding for Autosuggestion
+bindkey '^n' autosuggest-accept
+
+# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+
+# https://the.exa.website/docs/colour-themes
+export LS_COLORS="*.mp3=38;5;141"
+
+eval $(thefuck --alias)
