@@ -47,7 +47,7 @@ _dark() {
     rm -rf ~/.config/kitty/theme.conf && ln -s ~/.config/kitty/kitty-themes/gruvbox_dark.conf ~/.config/kitty/theme.conf
     sed -i "" -e "s/^\([[:space:]]*\)\(export FZF_DEFAULT_OPTS=\)\(.*\)/\1\2\$fzf_theme_dark/g" ~/.zshrc
     sed -i "" -e "s/^\(export BAT_THEME=\).*/\1\"gruvbox-dark\"/g" ~/.zshrc
-    sed -i "" -e "s/^\(export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\).*/\1\"fg=015\"/g" ~/.zshrc
+    sed -i "" -e "s/^\(export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\).*/\1\"fg=012\"/g" ~/.zshrc
     sed -i "" -e "s/^\(set background=\).*/\1dark/g" ~/.config/nvim/init.vim
     sed -i "" -e "s/\(.*active_window_border_color.*\)\".*\"/\1\"0xE04caf50\"/g" ~/.config/yabai/yabairc
 }
