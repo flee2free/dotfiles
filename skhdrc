@@ -67,7 +67,6 @@ shift + cmd - space : \
 
 
 # Move Window to Next Display
-# todo: need to focus on the new display
 hyper - 0x33 : id="$(yabai -m query --windows | jq -re '.[] | select(.focused == 1)."id"')" && \
     (yabai -m query --spaces --display next || yabai -m query --spaces --display prev) \
     | jq -re '.[] | select(.visible == 1)."display"' \
